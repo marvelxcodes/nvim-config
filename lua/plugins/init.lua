@@ -6,5 +6,6 @@ return {
   { import = "plugins.lsp" },
   { import = "plugins.cmp" },
   { import = "plugins.lualine" },
-  { import = "plugins.icons" }
+  { import = "plugins.icons" },
+  { import = "plugins.autopair" }
 }

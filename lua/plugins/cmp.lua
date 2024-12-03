@@ -1,4 +1,10 @@
 return {
+    {
+    "L3MON4D3/LuaSnip",
+    version = "v2.3.0",
+    config = function() require("luasnip").setup()
+    end
+    },
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -12,6 +18,7 @@ return {
     },
     config = function()
       local cmp = require("cmp")
+      local luasnip = require("luasnip")
       cmp.setup({
         snippet = {
           expand = function(args)

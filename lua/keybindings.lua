@@ -9,4 +9,4 @@ vim.keymap.set('n', '<leader>e','<cmd>NvimTreeToggle<cr>')
 -- Default
 vim.keymap.set({'n', 'x'}, '<C-S>i', '<cmd>vim.lsp.buff.format({async = true})<cr>')
 
-
+-- LuaSnip
