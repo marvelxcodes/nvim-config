@@ -6,7 +6,9 @@ vim.keymap.set('n', '<leader>g', telescope.live_grep, { desc = 'Telescope live g
 -- NvimTree
 vim.keymap.set('n', '<leader>e','<cmd>NvimTreeToggle<cr>')
 
--- Default
-vim.keymap.set({'n', 'x'}, '<C-S>i', '<cmd>vim.lsp.buff.format({async = true})<cr>')
+-- BufferLine
+vim.keymap.set({'n', 'x'}, '<leader>w', '<cmd>bd<cr>')
+vim.keymap.set({'n', 'x'}, '<leader>h', '<cmd><cr>')
 
--- LuaSnip
+-- Formatting
+-- vim.keymap.set({'n', 'x'}, '')

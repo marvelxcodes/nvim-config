@@ -12,108 +12,126 @@ return {
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {
-          "jdtls",       -- Java
-          "clangd",      -- C++
-          "pyright",     -- Python
-          "ts_ls",    -- TypeScript/JavaScript
-          "html",        -- HTML
-          "cssls",       -- CSS
-          "jsonls",      -- JSON
-	  "rust_analyzer",-- Rust
-	  "lua_ls",
-	  "tailwindcss",
-	  "bashls",
-	  "yamlls"
+          "jdtls",          -- Java
+          "clangd",         -- C++
+          "pyright",        -- Python
+          "ts_ls",          -- TypeScript/JavaScript
+          "html",           -- HTML
+          "cssls",          -- CSS
+          "jsonls",         -- JSON
+          "gopls",          -- Golang
+          "rust_analyzer",  -- Rust
+          "lua_ls",
+          "tailwindcss",
+          "bashls",
+          "yamlls"
         },
       })
 
-       local lspconfig = require("lspconfig")
+      -- Define the on_attach function once
       local on_attach = function(client, bufnr)
-  -- Keymaps for LSP
-  local opts = { noremap = true, silent = true, buffer = bufnr }
-  vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-  vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-  vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-  vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-end
+        -- Keymaps for LSP
+        local opts = { noremap = true, silent = true, buffer = bufnr }
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+      end
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
--- Java (jdtls)
-lspconfig.jdtls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
+      -- --- Start of the Fix ---
 
--- C++ (clangd)
-lspconfig.clangd.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
+      -- Java (jdtls)
+      -- NOTE: We still require lspconfig to use its util functions.
+      local lspconfig_util = require('lspconfig').util
+      vim.lsp.config("jdtls", {
+        on_attach = on_attach,
+        capabilities = capabilities,
 
--- Python (pyright)
-lspconfig.pyright.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
+        root_dir = lspconfig_util.root_pattern('build.gradle', 'gradlew', 'pom.xml', '.git'),
+        settings = {
+          java = {
+            configuration = {
+              runtimes = {
+                {
+                  name = "Java Openjdk",
+                  path = "/usr/lib/jvm/java-21-openjdk"
+                },
+              }
+            }
+          }
+        }
+      })
 
--- TypeScript & JavaScript (tsserver)
-lspconfig.ts_ls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
+      -- C++ (clangd)
+      vim.lsp.config("clangd", {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
 
--- HTML
-lspconfig.html.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
+      -- Python (pyright)
+      vim.lsp.config("pyright", {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
 
--- CSS
-lspconfig.cssls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
+      -- TypeScript & JavaScript (tsserver)
+      vim.lsp.config("ts_ls", {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
 
--- JSON
-lspconfig.jsonls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
+      -- HTML
+      vim.lsp.config("html", {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
 
--- Rust
-lspconfig.rust_analyzer.setup({
-   on_attach = on_attach,
-   capabilities = capabilities,
-})
+      -- CSS
+      vim.lsp.config("cssls", {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
 
--- TailwindCSS
-lspconfig.tailwindcss.setup({
-   on_attach = on_attach,
-   capabilities = capabilities
-})
+      -- JSON
+      vim.lsp.config("jsonls", {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
 
--- Lua
-lspconfig.lua_ls.setup({
-   on_attach = on_attach,
-   capabilities = capabilities
-})
+      -- Rust
+      vim.lsp.config("rust_analyzer", {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
 
--- Bash
-lspconfig.bashls.setup({
-   on_attach = on_attach,
-   capabilities = capabilities
-})
+      -- TailwindCSS
+      vim.lsp.config("tailwindcss", {
+        on_attach = on_attach,
+        capabilities = capabilities
+      })
 
--- Yaml
-lspconfig.yamlls.setup({
-   on_attach = on_attach,
-   capabilities = capabilities
-})
+      -- Lua
+      vim.lsp.config("lua_ls", {
+        on_attach = on_attach,
+        capabilities = capabilities
+      })
 
-end,
+      -- Bash
+      vim.lsp.config("bashls", {
+        on_attach = on_attach,
+        capabilities = capabilities
+      })
+
+      -- Yaml
+      vim.lsp.config("yamlls", {
+        on_attach = on_attach,
+        capabilities = capabilities
+      })
+
+      -- --- End of the Fix ---
+    end,
   },
 }
-
-

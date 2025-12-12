@@ -1,11 +1,20 @@
 return {
-  { import = "plugins.nvimtree" },
-  { import = "plugins.telescope" },
-  { import = "plugins.terminal" },
-  { import = "plugins.treesitter" },
+
+-- File Access
+  { import = "plugins.filetree" },
+  { import = "plugins.filebuffers" },
+  { import = "plugins.finder" },
+
+-- Code Fixing
+  { import = "plugins.formatters" },
+  { import = "plugins.linters" },
+
+-- Autocomplete
+  { import = "plugins.syntax-highlighting" },
   { import = "plugins.lsp" },
-  { import = "plugins.cmp" },
-  { import = "plugins.lualine" },
+  { import = "plugins.autocomplete" },
+
+-- Aesthetics
   { import = "plugins.icons" },
-  { import = "plugins.autopair" }
+  { import = "plugins.theme" }
 }

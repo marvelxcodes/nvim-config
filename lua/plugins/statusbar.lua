@@ -1,8 +1,3 @@
--- Bubbles config for lualine
--- Author: lokesh-krishna
--- MIT license, see LICENSE for more details.
-
--- stylua: ignore
 local colors = {
   blue   = '#80a0ff',
   cyan   = '#79dac8',
@@ -10,12 +5,12 @@ local colors = {
   white  = '#c6c6c6',
   red    = '#ff5189',
   violet = '#d183e8',
-  grey   = '#303030',
+  grey   = '#30303000',
 }
 
 local bubbles_theme = {
   normal = {
-    a = { fg = colors.black, bg = colors.violet },
+    a = { fg = colors.black, bg = colors.blue },
     b = { fg = colors.white, bg = colors.grey },
     c = { fg = colors.white },
   },
@@ -27,13 +22,13 @@ local bubbles_theme = {
   inactive = {
     a = { fg = colors.white, bg = colors.black },
     b = { fg = colors.white, bg = colors.black },
-    c = { fg = colors.white },
+    c = { fg = colors.grey },
   },
 }
 
 
 return {
-  {"nvim-lualine/lualine.nvim",
+    "nvim-lualine/lualine.nvim",
   config = function() require('lualine').setup({
   options = {
     theme = bubbles_theme,
@@ -44,8 +39,8 @@ return {
     lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 } },
     lualine_b = { 'filename', 'branch' },
     lualine_c = {
-      '%=', --[[ add your center compoentnts here in place of this comment ]]
-    },
+      '%='
+  },
     lualine_x = {},
     lualine_y = { 'filetype', 'progress' },
     lualine_z = {
@@ -60,21 +55,10 @@ return {
     lualine_y = {},
     lualine_z = { 'location' },
   },
-  tabline = {},
+  tabline = {
+
+  },
   extensions = { "nvim-tree" },
 })
     end
-  },
-  {
-    "folke/tokyonight.nvim",
-    lazy = false,  -- Load the theme immediately
-    priority = 1000,  -- Ensure it loads first
-    config = function()
-      require("tokyonight").setup({
-        style = "night",  -- Choose between "night", "storm", "day", or "moon"
-        transparent = false,  -- Enable or disable transparency
-      })
-      vim.cmd("colorscheme tokyonight")  -- Apply the colorscheme
-    end,
-  },
 }

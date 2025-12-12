@@ -9,18 +9,17 @@ if not vim.loop.fs_stat(lazypath) then
     lazypath,
   })
 end
+
 vim.opt.rtp:prepend(lazypath)
 
 
 require("lazy").setup("plugins", {
   dev = {
     path = "~/neovim/dev",
-    fallback = true,
+    fallback = true
   },
-  install = {
-    colorscheme = { "github_dark" },
-  },
-  diff = {
+
+   diff = {
     cmd = "diffview.nvim",
   },
 })

@@ -22,6 +22,7 @@ vim.opt.includeexpr = "substitute(v:fname,'\\.','/','g')"
 -- vim.opt.paste = true
 
 -- Interface
+vim.opt.list = false
 vim.opt.confirm = true
 vim.opt.splitkeep = "screen"
 vim.opt.splitbelow = true
